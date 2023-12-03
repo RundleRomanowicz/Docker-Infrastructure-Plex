@@ -1,0 +1,25 @@
+version: "2"
+services:
+  plex:
+    image: linuxserver/plex
+    #image: linuxserver/plex:1.18.8.2527-740d4c206-ls84
+    container_name: plex
+    network_mode: bridge
+    ports:
+      - 8082:80
+      - 32501:32400
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker 
+      - UMASK_SET=022 #optional
+      - PLEX_CLAIM=claim-umMNr5NjGCT94MbwvMzg
+    volumes:
+      - ${PLEX_CONFIG}:/config
+      - ${PLEX_SHOWS}:/tv
+      - ${PLEX_MOVIES}:/movies
+      - ${PLEX_TRANSCODE}:/transcode
+      - ${PLEX_MUSIC}:/music
+      - ${PLEX_AUDIOBOOKS}:/audiobooks
+    restart: unless-stopped
+  
